@@ -1,2 +1,2 @@
-public class Pilote {
+public class Pilote extends Employe{
 }

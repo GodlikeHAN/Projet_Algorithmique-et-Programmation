@@ -1,2 +1,2 @@
-public class PersonnelCabine {
+public class PersonnelCabine extends Employe{
 }
