@@ -2,15 +2,16 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlightFileManagerTest {
-    private static final String TEST_CSV = "src/test/resources/test_flights.csv";
+
     private static final String SAMPLE_CSV =
             "Code,Dep,Arriv,Date,Hour\n" +
                     "TO350,Paris,Rome,25-12,10:15\n" +
@@ -19,22 +20,23 @@ class FlightFileManagerTest {
 
     @Test
     void testImportExport() throws IOException, ParseException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TEST_CSV))) {
-            writer.write(SAMPLE_CSV);
-        }
+        // 1. CSV
+        Path tempInput = Path.of("target/test_flights.csv");
+        Files.createDirectories(tempInput.getParent());
+        Files.writeString(tempInput, SAMPLE_CSV);
 
-
-        List<Flight> flights = FlightFileManager.importFlights(TEST_CSV);
+        // 2. importFlights()
+        List<Flight> flights = FlightFileManager.importFlights(tempInput.toString());
         assertEquals(3, flights.size());
         assertEquals("TO350", flights.get(0).getCode());
         assertEquals("Paris", flights.get(0).getDeparture());
 
+        // 3. exportFlights()
+        Path exportPath = Path.of("target/export_flights.csv");
+        FlightFileManager.exportFlights(flights, exportPath.toString());
 
-        String exportPath = "src/test/resources/export_flights.csv";
-        FlightFileManager.exportFlights(flights, exportPath);
-
-
-        List<Flight> exportedFlights = FlightFileManager.importFlights(exportPath);
+        // 4.
+        List<Flight> exportedFlights = FlightFileManager.importFlights(exportPath.toString());
         assertEquals(flights.size(), exportedFlights.size());
         assertEquals(flights.get(0).toString(), exportedFlights.get(0).toString());
     }
