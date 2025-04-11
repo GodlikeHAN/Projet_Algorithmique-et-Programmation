@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-class Vol {
+public class Vol {
     private String numeroVol;
     private String[] origine = new String[2];
     private String[] destination = new String[2];
