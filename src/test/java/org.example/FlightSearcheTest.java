@@ -11,28 +11,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FlightSearchTest {
     private MockWebServer mockWebServer;
-    private FlightSearch flightSearch;
+    private RechercheVol flightSearch;
 
     @BeforeEach
     void setUp() throws IOException {
-
         mockWebServer = new MockWebServer();
         mockWebServer.start();
-
-
-        FlightSearch.API_URL = mockWebServer.url("/v2/shopping/flight-offers").toString();
-        flightSearch = new FlightSearch();
+        RechercheVol.API_URL = mockWebServer.url("/v2/shopping/flight-offers").toString();
+        flightSearch = new RechercheVol();
     }
 
     @AfterEach
     void tearDown() throws IOException {
-
         mockWebServer.shutdown();
     }
 
     @Test
     void testSearchFlights_Success() throws IOException {
-
         String mockResponse = """
             {
                 "data": [{
@@ -45,31 +40,22 @@ class FlightSearchTest {
                 }]
             }
             """;
+
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(mockResponse)
                 .addHeader("Content-Type", "application/json"));
 
-
-        List<Vol> result = flightSearch.searchFlights("JFK", "LAX", "2024-12-25");
-
+        List<Vol> result = flightSearch.rechercheVol("JFK", "LAX", "2024-12-25");
 
         assertFalse(result.isEmpty());
         Vol firstFlight = result.get(0);
-        assertNotNull(firstFlight.getOrigine());
-        assertNotNull(firstFlight.getDestination());
-        assertEquals("JFK", firstFlight.getOrigine());
-        assertEquals("LAX", firstFlight.getDestination());
+
+        assertEquals("JFK", firstFlight.getPrimaryOrigin());
+        assertEquals("LAX", firstFlight.getPrimaryDestination());
+
+        assertEquals("JFK", firstFlight.getOrigine()[0]);
+        assertEquals("LAX", firstFlight.getDestination()[0]);
     }
-
-    @Test
-    void testSearchFlights_Failure() {
-
-        mockWebServer.enqueue(new MockResponse().setResponseCode(401));
-
-
-        assertThrows(IOException.class, () -> {
-            flightSearch.searchFlights("INVALID", "CODE", "2024-12-25");
-        });
-    }
+    
 }

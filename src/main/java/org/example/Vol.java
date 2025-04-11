@@ -28,16 +28,32 @@ class Vol {
     public void setAvion(Avion avion) { this.avion = avion; }
     public List<PersonnelCabine> getEquipageCabine() {return equipageCabine;}
 
+    public String getPrimaryOrigin() {
+        return origine[0];
+    }
 
+
+    public String getPrimaryDestination() {
+        return destination[0];
+    }
+
+    public void setPrimaryOrigin(String airportCode) {
+        this.origine[0] = airportCode;
+    }
+
+    public void setPrimaryDestination(String airportCode) {
+        this.destination[0] = airportCode;
+    }
     public Vol(String numeroVol, String origine, String destination, Date dateHeureDepart, Date dateHeureArrivee) {
         this.numeroVol = numeroVol;
-        this.origine[0] = origine;
-        this.destination[0] = destination;
+        this.setPrimaryOrigin(origine);
+        this.setPrimaryDestination(destination);
         this.dateHeureDepart = dateHeureDepart;
         this.dateHeureArrivee = dateHeureArrivee;
         this.etat = "En planification";
         this.equipageCabine = new ArrayList<>();
         this.reservations = new ArrayList<>();
+        listeVolsPlanifies.add(this);
     }
 
     public void affecterPilote(Pilote pilote) {
@@ -67,12 +83,13 @@ class Vol {
     public static void annulerVol(String numeroVol) {      // BUG : annuler vol 1 annule vol 1 et 2.
         //this.numeroVol = numeroVol;
         for (Vol v : listeVolsPlanifies) {
-            if (v.numeroVol == numeroVol) {
+            if (v.numeroVol.equals(numeroVol)) {
                 v.etat = "Annulé";
                 System.out.println("Le vol " + numeroVol + " a été annulé.");
-                break;
+                return;
             }
         }
+        System.out.println("Le vol " + numeroVol + " n'a pas été trouvé.");
     }
 
     public void modifierVol(String origine, String destination, Date dateHeureDepart, Date dateHeureArrivee, String etat) {

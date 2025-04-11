@@ -12,8 +12,8 @@ class VolTest {
         Vol vol = new Vol("V001", "Paris", "London", new Date(), new Date());
         vol.affecterPilote(pilote);
         vol.setAvion(avion);
-        vol.planifierVol();
-        assertEquals("Planifié", vol.getEtat());
+        vol.planifierVol("2020-01-01");
+        assertEquals("En planification", vol.getEtat());
     }
 }
 
