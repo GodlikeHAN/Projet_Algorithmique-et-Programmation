@@ -2,8 +2,6 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.example.Avion;
-import org.example.Pilote;
 import java.util.Date;
 
 class VolTest {
