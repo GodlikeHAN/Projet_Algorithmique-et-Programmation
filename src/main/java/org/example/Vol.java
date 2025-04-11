@@ -2,16 +2,18 @@ package org.example;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 class Vol {
     private int numeroVol;
     private String[] origine = new String[2];
     private String[] destination = new String[2];
-    private LocalDateTime dateHeureDepart;
-    private LocalDateTime dateHeureArrivee;
+    private Date dateHeureDepart;
+    private Date dateHeureArrivee;
     private String etat;
     private Avion avion;
+
     private Pilote pilote;
     private List<PersonnelCabine> equipageCabine;
     List<Reservation> reservations;
@@ -20,13 +22,15 @@ class Vol {
     public int getNumeroVol() { return numeroVol; }
     public String[] getOrigine() { return origine; }
     public String[] getDestination() { return destination; }
-    public LocalDateTime getDateHeureDepart() { return dateHeureDepart; }
-    public LocalDateTime getDateHeureArrivee() { return dateHeureArrivee; }
+    public Date getDateHeureDepart() { return dateHeureDepart; }
+    public Date getDateHeureArrivee() { return dateHeureArrivee; }
     public String getEtat() { return etat; }
     public Avion getAvion() { return avion; }
     public void setAvion(Avion avion) { this.avion = avion; }
+    public List<PersonnelCabine> getEquipageCabine() {return equipageCabine;}
 
-    public Vol(int numeroVol, String origine, String destination, LocalDateTime dateHeureDepart, LocalDateTime dateHeureArrivee) {
+
+    public Vol(int numeroVol, String origine, String destination, Date dateHeureDepart, Date dateHeureArrivee) {
         this.numeroVol = numeroVol;
         this.origine[0] = origine;
         this.destination[0] = destination;
@@ -72,12 +76,12 @@ class Vol {
         }
     }
 
-    public void modifierVol(String origine, String destination, LocalDateTime dateHeureDepart, LocalDateTime dateHeureArrivee, String etat) {
+    public void modifierVol(String origine, String destination, Date dateHeureDepart, Date dateHeureArrivee, String etat) {
         this.origine[0] = origine;
         this.destination[0] = destination;
         this.dateHeureDepart = dateHeureDepart;
         this.dateHeureArrivee = dateHeureArrivee;
-        this.Etat = etat;
+        this.etat = etat;
 
         System.out.println("Le vol " + numeroVol + " a été modifié.");
     }
