@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Objects;
+
 public class PersonnelCabine extends Employe {
     private String qualification;
 
@@ -9,9 +11,9 @@ public class PersonnelCabine extends Employe {
     public void affecterVol(Vol vol) {
         vol.getEquipageCabine().add(this);
     }
-    public void obtenirVol(int numeroVol) {
+    public void obtenirVol(String numeroVol) {
         for (Vol vol : Vol.listeVolsPlanifies) {
-            if (vol.getNumeroVol() == numeroVol) {
+            if (Objects.equals(vol.getNumeroVol(), numeroVol)) {
                 System.out.println(vol);
                 break;
             }

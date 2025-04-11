@@ -1,12 +1,11 @@
 package org.example;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 class Vol {
-    private int numeroVol;
+    private String numeroVol;
     private String[] origine = new String[2];
     private String[] destination = new String[2];
     private Date dateHeureDepart;
@@ -19,7 +18,7 @@ class Vol {
     List<Reservation> reservations;
     public static ArrayList<Vol> listeVolsPlanifies = new ArrayList<>(); // Liste de vols planifiés
 
-    public int getNumeroVol() { return numeroVol; }
+    public String getNumeroVol() { return numeroVol; }
     public String[] getOrigine() { return origine; }
     public String[] getDestination() { return destination; }
     public Date getDateHeureDepart() { return dateHeureDepart; }
@@ -30,7 +29,7 @@ class Vol {
     public List<PersonnelCabine> getEquipageCabine() {return equipageCabine;}
 
 
-    public Vol(int numeroVol, String origine, String destination, Date dateHeureDepart, Date dateHeureArrivee) {
+    public Vol(String numeroVol, String origine, String destination, Date dateHeureDepart, Date dateHeureArrivee) {
         this.numeroVol = numeroVol;
         this.origine[0] = origine;
         this.destination[0] = destination;
@@ -65,7 +64,7 @@ class Vol {
         return volsDuJour;
     }
 
-    public static void annulerVol(int numeroVol) {      // BUG : annuler vol 1 annule vol 1 et 2.
+    public static void annulerVol(String numeroVol) {      // BUG : annuler vol 1 annule vol 1 et 2.
         //this.numeroVol = numeroVol;
         for (Vol v : listeVolsPlanifies) {
             if (v.numeroVol == numeroVol) {

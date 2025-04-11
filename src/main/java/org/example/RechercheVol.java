@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
-public class FlightSearch {
+public class RechercheVol {
     private static final String API_KEY = "YOUR_API_KEY";
     private static final String API_URL = "https://test.api.amadeus.com/v2/shopping/flight-offers";
 
-    public static List<Vol> searchFlights(String origin, String destination, String date) throws IOException {
+    public static List<Vol> rechercheVol(String origin, String destination, String date) throws IOException {
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(API_URL).newBuilder();
         urlBuilder.addQueryParameter("originLocationCode", origin);

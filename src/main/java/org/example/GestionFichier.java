@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class FileManager {
+public class GestionFichier {
     public static List<Vol> importVolsFromCSV(String filePath) {
         List<Vol> vols = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
