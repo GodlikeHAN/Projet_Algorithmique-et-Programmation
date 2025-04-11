@@ -72,7 +72,7 @@ public class Main {
             System.out.println("→ Vol #" + v.getNumeroVol() + " de " + v.getOrigine()[0] + " à " + v.getDestination()[0]);
         }
 
-        // Obtenir infos d’un vol 
+        // Obtenir infos d’un vol
         cabine1.obtenirVol(1);
 
         // Annulation du vol
